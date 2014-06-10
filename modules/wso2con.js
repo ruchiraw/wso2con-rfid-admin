@@ -31,9 +31,7 @@ var token = function () {
         return obj;
     }
     obj = post(app.rfidService.tokenUrl, {
-        grant_type: 'password',
-        username: app.rfidService.username,
-        password: app.rfidService.password,
+        grant_type: 'client_credentials',
         scope: 'PRODUCTION'
     }, {
         'Authorization': 'Basic ' + base64.encode(app.rfidService.consumerKey + ':' + app.rfidService.consumerSecret),
@@ -81,7 +79,7 @@ var rfids = function () {
         var obj = get(app.rfidService.endpoint + '/conferences/' + app.conId + '/iot/users/rfid', null, auth());
         if (obj.xhr.status !== 200) {
             log.error('Error while generating the token. Using a dummy token');
-            obj = {};
+            obj = [];
         } else {
             obj = JSON.parse(obj.data);
         }
