@@ -1,0 +1,15 @@
+{
+    "conId": "2",
+    "authKey": "wso2con",
+    "customerService": "http://localhost:9763/services/samples/GSpreadSample.HTTPEndpoint/getCustomers",
+    "otUser":"foo@wso2.com",
+    "otPass":"foo",
+    "rfidService": {
+        "username": "admin@ruchira.com",
+        "password": "admin",
+        "tokenUrl": "https://gateway.apicloud.cloudpreview.wso2.com:8243/token",
+        "consumerKey": "key",
+        "consumerSecret": "secret",
+        "endpoint": "http://gateway.apicloud.cloudpreview.wso2.com:8280/t/indikas.com/wso2coniot/1.0.0"
+    }
+}

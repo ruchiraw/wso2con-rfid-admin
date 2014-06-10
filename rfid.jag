@@ -1,0 +1,22 @@
+<%
+(function () {
+    var log = new Log();
+    var app = require('/configs/app.json');
+    if (!session.get('auth')) {
+        response.sendRedirect('login.jag');
+        return;
+    }
+    var rfid = request.getParameter('rfid');
+    var email = request.getParameter('email');
+    var deviceId = request.getParameter('device');
+
+    var con = require('/modules/wso2con.js');
+    con.rfid({
+        email: email,
+        rfid: rfid
+    });
+
+    response.sendRedirect('index.jag?device=' + deviceId);
+
+}());
+%>

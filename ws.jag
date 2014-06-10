@@ -1,0 +1,49 @@
+<%
+(function () {
+    var app = require('/configs/app.json');
+    if (!session.get('auth')) {
+        response.sendRedirect('login.jag');
+        return;
+    }
+    var log = new Log();
+    var deviceId = request.getParameter('device');
+    
+    webSocket.ontext = function (data) {
+        log.info(data);
+    };
+
+    webSocket.onbinary = function (stream) {
+
+    };
+
+    webSocket.onopen = function (outstre) {
+        var clients = application.get('clients');
+        if (!clients) {
+            clients = {};
+            application.put('clients', clients);
+        }
+        var device = clients[deviceId];
+        if (!device) {
+            device = [];
+            clients[deviceId] = device;
+        }
+        device.push(webSocket);
+    };
+
+    webSocket.onclose = function (status) {
+        var clients = application.get('clients');
+        if (!clients) {
+            return;
+        }
+        var device = clients[deviceId];
+        if (!device) {
+            return;
+        }
+        var index = device.indexOf(webSocket);
+        if (index === -1) {
+            return;
+        }
+        delete device[index];
+    };
+}());
+%>

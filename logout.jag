@@ -1,0 +1,4 @@
+<%
+    session.remove('auth');
+    response.sendRedirect('login.jag');
+%>

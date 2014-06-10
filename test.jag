@@ -1,0 +1,4 @@
+<%
+    var con = require('/modules/wso2con.js');
+    print(con.rfids());
+%>

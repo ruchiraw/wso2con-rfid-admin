@@ -1,0 +1,11 @@
+<%
+(function() {
+    var app = require('/configs/app.json');
+    if (!session.get('auth')) {
+        response.sendRedirect('login.jag');
+        return;
+    }
+    response.contentType = 'application/json';
+    print(application.get('attendees'));
+}());
+%>

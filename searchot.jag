@@ -1,0 +1,30 @@
+<%
+(function () {
+    var app = require('/configs/app.json');
+    if (!session.get('auth')) {
+        response.sendRedirect('login.jag');
+        return;
+    }
+
+    var searchOT = function (email) {
+        var data = post('https://wso2.com/services/rest/ws/retrieve.xml',
+                        'uid=' + email +
+                        '&mail=' + encodeURIComponent(app.otUser) +
+                        '&password=' + encodeURIComponent(app.otPass)
+        ).data;
+        if (!data) {
+            return null;
+        }
+        data = new XML(data);
+        return {
+            uid: data..user.uid,
+            email: data..user.mail,
+            firstname: data..user.profile_first_name,
+            lastname: data..user.profile_last_name
+        };
+    };
+
+    response.contentType = 'application/json';
+    print(searchOT(request.getParameter('email')));
+}());
+%>

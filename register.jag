@@ -1,0 +1,13 @@
+<%
+var rfid = request.getParameter('rfid');
+var device = request.getParameter('device');
+var clients = application.get('clients');
+if (clients) {
+    device = clients[device];
+    if (device) {
+        device.forEach(function (ws) {
+            ws.send(rfid);
+        });
+    }
+}
+%>
